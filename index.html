@@ -62,6 +62,7 @@
             gap: 10px;
             box-shadow: 0 10px 25px rgba(6, 199, 85, 0.2);
             transition: opacity 0.2s;
+            cursor: pointer;
         }
         .btn-line:active { opacity: 0.8; }
 
@@ -118,7 +119,6 @@
         <header class="pt-20 pb-12 px-8 text-center relative overflow-hidden">
             <div class="absolute top-0 left-0 w-full h-40 bg-gradient-to-b from-pink-50/50 to-transparent -z-10"></div>
             
-            <!-- Message -->
             <p class="text-[11px] text-pink-300 tracking-[0.3em] font-medium mb-3 fade-in">
                 あなたの想いをカタチに。
             </p>
@@ -142,8 +142,6 @@
 
         <!-- MAIN MENU LIST -->
         <div class="px-6 space-y-4 fade-in" style="animation-delay: 0.6s;">
-            
-            <!-- 起業スタートパック -->
             <div class="menu-item" onclick="show('startpack')">
                 <div class="icon-circle bg-yellow-50 text-yellow-500">
                     <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-7.714 2.143L11 21l-2.286-6.857L1 12l7.714-2.143L11 3z"></path></svg>
@@ -154,7 +152,6 @@
                 <span class="text-slate-300">→</span>
             </div>
 
-            <!-- lit.link -->
             <div class="menu-item" onclick="show('litlink')">
                 <div class="icon-circle bg-pink-50 text-pink-400">
                     <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>
@@ -165,7 +162,6 @@
                 <span class="text-slate-300">→</span>
             </div>
 
-            <!-- リッチメニュー -->
             <div class="menu-item" onclick="show('richmenu')">
                 <div class="icon-circle bg-blue-50 text-blue-400">
                     <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16m-7 6h7"></path></svg>
@@ -176,7 +172,6 @@
                 <span class="text-slate-300">→</span>
             </div>
 
-            <!-- チラシ・メニュー作成 -->
             <div class="menu-item" onclick="show('leaflet')">
                 <div class="icon-circle bg-orange-50 text-orange-400">
                     <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
@@ -187,7 +182,6 @@
                 <span class="text-slate-300">→</span>
             </div>
 
-            <!-- 名刺・カード制作 -->
             <div class="menu-item" onclick="show('businesscard')">
                 <div class="icon-circle bg-emerald-50 text-emerald-400">
                     <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path></svg>
@@ -198,7 +192,6 @@
                 <span class="text-slate-300">→</span>
             </div>
 
-            <!-- 資料・SNSデザイン -->
             <div class="menu-item" onclick="show('snsdesign')">
                 <div class="icon-circle bg-purple-50 text-purple-400">
                     <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
@@ -208,7 +201,6 @@
                 </div>
                 <span class="text-slate-300">→</span>
             </div>
-
         </div>
 
         <footer class="mt-24 px-8 pb-16 text-center opacity-40">
@@ -227,9 +219,7 @@
             <div id="content"></div>
 
             <div class="mt-16">
-                <a href="https://line.me/ti/p/ExG9z1qGXs" target="_blank" class="btn-line">
-                    公式LINEで相談する
-                </a>
+                <div id="line-button-container"></div>
             </div>
         </div>
     </div>
@@ -238,6 +228,7 @@
         const details = {
             startpack: {
                 title: '起業スタートパック',
+                msg: '起業スタートパックについて詳しく教えてください！自分に何が必要か相談したいです。',
                 checks: [
                     '好印象を与える名刺デザイン制作',
                     'ブランドの世界観を整えるlit.link制作',
@@ -248,6 +239,7 @@
             },
             litlink: {
                 title: 'lit.link 制作',
+                msg: 'リットリンク（lit.link）の制作をお願いしたいです。おしゃれなデザインにしたいと思っています！',
                 checks: [
                     '世界観を伝えるオリジナルデザイン',
                     'SNSやブログへの導線設計',
@@ -257,6 +249,7 @@
             },
             richmenu: {
                 title: 'リッチメニュー制作',
+                msg: 'LINEのリッチメニューの制作を相談したいです。公式LINEを整えたいのでよろしくお願いします！',
                 checks: [
                     'クリック率を高めるボタン配置',
                     'ブランドカラーに合わせたデザイン',
@@ -266,6 +259,7 @@
             },
             leaflet: {
                 title: 'チラシ・メニュー作成',
+                msg: 'チラシやメニュー表の作成について相談させてください。お店の雰囲気に合わせたデザインを希望しています。',
                 checks: [
                     '店舗の雰囲気に合わせたデザイン',
                     '読みやすさと購買意欲を重視',
@@ -275,6 +269,7 @@
             },
             businesscard: {
                 title: '名刺・カード制作',
+                msg: '名刺（ショップカード）の制作をお願いしたいです！デザインのイメージから相談に乗ってください。',
                 checks: [
                     '印象に残るオリジナルデザイン制作',
                     'デジタル名刺(NFC)対応相談可能',
@@ -284,6 +279,7 @@
             },
             snsdesign: {
                 title: '資料・SNSデザイン',
+                msg: 'SNS投稿画像や資料のデザインをお願いしたいです。世界観を統一したいのでアドバイスください！',
                 checks: [
                     'インスタ投稿画像・バナー制作',
                     'プレゼン資料のブラッシュアップ',
@@ -321,6 +317,15 @@
                     </p>
                 </div>
             `;
+
+            // LINEボタンをメッセージ付きURLで生成
+            const lineUrl = `https://line.me/ti/p/ExG9z1qGXs?text=${encodeURIComponent(d.msg)}`;
+            document.getElementById('line-button-container').innerHTML = `
+                <div onclick="window.location.href='${lineUrl}'" class="btn-line">
+                    公式LINEで相談する
+                </div>
+            `;
+
             document.getElementById('overlay').style.display = 'block';
             window.scrollTo(0, 0);
         }
