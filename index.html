@@ -228,64 +228,33 @@
         const details = {
             startpack: {
                 title: '起業スタートパック',
-                msg: '起業スタートパックについて詳しく教えてください！自分に何が必要か相談したいです。',
-                checks: [
-                    '好印象を与える名刺デザイン制作',
-                    'ブランドの世界観を整えるlit.link制作',
-                    '公式LINEリッチメニュー制作',
-                    'SNSアイコン・ヘッダー作成',
-                    '集客を意識したデザインのトータルプロデュース'
-                ]
+                msg: '起業スタートパックについて詳しく教えてください！',
+                checks: ['名刺デザイン制作', 'lit.link制作', 'リッチメニュー制作', 'SNSアイコン作成']
             },
             litlink: {
                 title: 'lit.link 制作',
-                msg: 'リットリンク（lit.link）の制作をお願いしたいです。おしゃれなデザインにしたいと思っています！',
-                checks: [
-                    '世界観を伝えるオリジナルデザイン',
-                    'SNSやブログへの導線設計',
-                    'スマホで見やすいLP風レイアウト',
-                    'アイコン制作・画像加工込み'
-                ]
+                msg: 'リットリンク（lit.link）の制作をお願いしたいです。',
+                checks: ['世界観を伝えるデザイン', '導線設計', 'LP風レイアウト', 'アイコン制作込み']
             },
             richmenu: {
                 title: 'リッチメニュー制作',
-                msg: 'LINEのリッチメニューの制作を相談したいです。公式LINEを整えたいのでよろしくお願いします！',
-                checks: [
-                    'クリック率を高めるボタン配置',
-                    'ブランドカラーに合わせたデザイン',
-                    'スムーズなタブ切り替え対応可能',
-                    '公式LINEへの設置サポート'
-                ]
+                msg: 'リッチメニューの制作を相談したいです。',
+                checks: ['高クリック率の配置', 'ブランドカラー対応', '設置サポート込み']
             },
             leaflet: {
                 title: 'チラシ・メニュー作成',
-                msg: 'チラシやメニュー表の作成について相談させてください。お店の雰囲気に合わせたデザインを希望しています。',
-                checks: [
-                    '店舗の雰囲気に合わせたデザイン',
-                    '読みやすさと購買意欲を重視',
-                    '飲食店メニュー・イベントチラシ対応',
-                    'QRコード設置・地図作成'
-                ]
+                msg: 'チラシやメニュー表の作成について相談させてください。',
+                checks: ['店舗に合わせたデザイン', '読みやすさ重視', 'QRコード設置']
             },
             businesscard: {
                 title: '名刺・カード制作',
-                msg: '名刺（ショップカード）の制作をお願いしたいです！デザインのイメージから相談に乗ってください。',
-                checks: [
-                    '印象に残るオリジナルデザイン制作',
-                    'デジタル名刺(NFC)対応相談可能',
-                    '両面デザイン・印刷入稿代行',
-                    'ショップの雰囲気に合う紙質提案'
-                ]
+                msg: '名刺の制作をお願いしたいです。',
+                checks: ['印象に残るオリジナルデザイン', '印刷入稿代行', 'ショップカード対応']
             },
             snsdesign: {
                 title: '資料・SNSデザイン',
-                msg: 'SNS投稿画像や資料のデザインをお願いしたいです。世界観を統一したいのでアドバイスください！',
-                checks: [
-                    'インスタ投稿画像・バナー制作',
-                    'プレゼン資料のブラッシュアップ',
-                    '目を引くYouTubeサムネイル',
-                    '統一感のあるブランド画像制作'
-                ]
+                msg: 'SNS投稿画像や資料のデザインをお願いしたいです。',
+                checks: ['インスタ投稿・バナー', 'プレゼン資料ブラッシュアップ', 'YouTubeサムネ']
             }
         };
 
@@ -310,28 +279,27 @@
                         ${checkListHtml}
                     </div>
                 </div>
-
-                <div class="mt-8 px-4 text-center">
-                    <p class="text-[12px] text-slate-400 leading-relaxed italic">
-                        あなたの想いに合わせて、<br>心を込めて一つひとつ丁寧に作り上げます。
-                    </p>
-                </div>
             `;
 
-            // 公式LINEのURLにメッセージを付与（?text=メッセージ内容）
-            // 飛ぶ先：https://lin.ee/r4Jie7q
-            const lineUrl = `https://line.me/R/oaMessage/@085ndkly/?${encodeURIComponent(d.msg)}`;
-            // ※ lin.eeの短縮URLでは直接メッセージを付与できないため、
-            // LINE公式アカウントのIDを使用したスキーム形式に自動変換して遷移させます。
+            // lin.ee を直接叩くのが最も安全です（友だち追加設定が生きていれば確実）
+            // メッセージ付きで送る場合は、お客様に「送信ボタン」を押してもらう必要があります
+            const baseUrl = "https://lin.ee/r4Jie7q";
             
             document.getElementById('line-button-container').innerHTML = `
-                <div onclick="window.location.href='${lineUrl}'" class="btn-line">
+                <div onclick="openLine('${d.msg}')" class="btn-line">
                     公式LINEで相談する
                 </div>
             `;
 
             document.getElementById('overlay').style.display = 'block';
             window.scrollTo(0, 0);
+        }
+
+        function openLine(text) {
+            // 公式LINEの短縮URLへ飛ばします
+            // メッセージを自動入力させたい場合、公式アカウント側の設定によっては
+            // 特定のリンク形式が弾かれることがあるため、まずは一番確実な短縮URLへ遷移させます。
+            window.location.href = "https://lin.ee/r4Jie7q";
         }
 
         function hide() {
