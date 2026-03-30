@@ -318,8 +318,12 @@
                 </div>
             `;
 
-            // LINEボタンをメッセージ付きURLで生成
-            const lineUrl = `https://line.me/ti/p/ExG9z1qGXs?text=${encodeURIComponent(d.msg)}`;
+            // 公式LINEのURLにメッセージを付与（?text=メッセージ内容）
+            // 飛ぶ先：https://lin.ee/r4Jie7q
+            const lineUrl = `https://line.me/R/oaMessage/@085ndkly/?${encodeURIComponent(d.msg)}`;
+            // ※ lin.eeの短縮URLでは直接メッセージを付与できないため、
+            // LINE公式アカウントのIDを使用したスキーム形式に自動変換して遷移させます。
+            
             document.getElementById('line-button-container').innerHTML = `
                 <div onclick="window.location.href='${lineUrl}'" class="btn-line">
                     公式LINEで相談する
